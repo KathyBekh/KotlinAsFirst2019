@@ -63,7 +63,12 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = TODO()
+fun ageDescription(age: Int): String {
+    return if (age < 0 || age > 200) "столько не живут"
+    else if (age % 10 == 1 && age % 100 !in 10..20) "$age год"
+    else if (age % 10 in 2..4 && age % 100 !in 10..20) "$age года"
+    else "$age лет"
+}
 
 /**
  * Простая
@@ -76,7 +81,14 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = TODO()
+): Double {
+    val halfWay = (t1 * v1 + t2 * v2 + t3 * v3) / 2
+    return when {
+        halfWay <= v1 * t1 -> halfWay / v1
+        halfWay <= (v1 * t1 + v2 * t2) -> (halfWay - v1 * t1) / v2 + t1
+        else -> (halfWay - (v1 * t1 + v2 * t2)) / v3 + t1 + t2
+    }
+}
 
 /**
  * Простая
@@ -91,7 +103,53 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int = TODO()
+): Int {
+    var threatKing = 0
+    if (kingX == rookX1 || kingY == rookY1) {
+        threatKing += 1
+    }
+    if (kingX == rookX2 || kingY == rookY2) {
+        threatKing += 2
+    }
+    return threatKing
+}
+
+fun whichRookThreatens1(
+    kingX: Int, kingY: Int,
+    rookX1: Int, rookY1: Int,
+    rookX2: Int, rookY2: Int
+): Int = ((if (kingX == rookX1 || kingY == rookY1) 1 else 0)
+        +
+        (if (kingX == rookX2 || kingY == rookY2) 2 else 0))
+
+fun whichRookThreatens2(
+    kingX: Int, kingY: Int,
+    rookX1: Int, rookY1: Int,
+    rookX2: Int, rookY2: Int
+): Int {
+    fun doesIntersect(rookX: Int, rookY: Int, valueIfDoes: Int): Int =
+        if (kingX == rookX || kingY == rookY) valueIfDoes else 0
+    return doesIntersect(rookX1, rookY1, 1) + doesIntersect(rookX2, rookY2, 2)
+}
+
+fun whichRookThreatens3(
+    kingX: Int, kingY: Int,
+    rookX1: Int, rookY1: Int,
+    rookX2: Int, rookY2: Int
+): Int {
+    return x(kingX, kingY, rookX1, rookY1) + y(kingX, kingY, rookX2, rookY2)
+}
+
+fun x(kingX: Int, kingY: Int, rookX1: Int, rookY1: Int): Int {
+    if (kingX == rookX1 || kingY == rookY1) {
+        return 1
+    } else {
+        return 0
+    }
+}
+
+fun y(kingX: Int, kingY: Int, rookX2: Int, rookY2: Int): Int =
+    if (kingX == rookX2 || kingY == rookY2) 2 else 0
 
 /**
  * Простая
