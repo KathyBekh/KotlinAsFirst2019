@@ -3,7 +3,10 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
+import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 
 /**
@@ -114,43 +117,6 @@ fun whichRookThreatens(
     return threatKing
 }
 
-fun whichRookThreatens1(
-    kingX: Int, kingY: Int,
-    rookX1: Int, rookY1: Int,
-    rookX2: Int, rookY2: Int
-): Int = ((if (kingX == rookX1 || kingY == rookY1) 1 else 0)
-        +
-        (if (kingX == rookX2 || kingY == rookY2) 2 else 0))
-
-fun whichRookThreatens2(
-    kingX: Int, kingY: Int,
-    rookX1: Int, rookY1: Int,
-    rookX2: Int, rookY2: Int
-): Int {
-    fun doesIntersect(rookX: Int, rookY: Int, valueIfDoes: Int): Int =
-        if (kingX == rookX || kingY == rookY) valueIfDoes else 0
-    return doesIntersect(rookX1, rookY1, 1) + doesIntersect(rookX2, rookY2, 2)
-}
-
-fun whichRookThreatens3(
-    kingX: Int, kingY: Int,
-    rookX1: Int, rookY1: Int,
-    rookX2: Int, rookY2: Int
-): Int {
-    return x(kingX, kingY, rookX1, rookY1) + y(kingX, kingY, rookX2, rookY2)
-}
-
-fun x(kingX: Int, kingY: Int, rookX1: Int, rookY1: Int): Int {
-    if (kingX == rookX1 || kingY == rookY1) {
-        return 1
-    } else {
-        return 0
-    }
-}
-
-fun y(kingX: Int, kingY: Int, rookX2: Int, rookY2: Int): Int =
-    if (kingX == rookX2 || kingY == rookY2) 2 else 0
-
 /**
  * Простая
  *
@@ -165,7 +131,9 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int = TODO()
+): Int = ((if (kingX == rookX || kingY == rookY) 1 else 0)
+        +
+        (if (abs(kingX - bishopX) == abs(kingY - bishopY)) 2 else 0))
 
 /**
  * Простая
@@ -175,7 +143,12 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    return if (a > b + c || b > a + c || c > a + b) -1
+    else if (sqr(a) == sqr(b) + sqr(c) || sqr(b) == sqr(a) + sqr(c) || sqr(c) == sqr(b) + sqr(a)) 1
+    else if (sqr(a) > (sqr(b) + sqr(c)) || sqr(b) > (sqr(a) + sqr(c)) || sqr(c) > (sqr(b) + sqr(a))) 2
+    else 0
+}
 
 /**
  * Средняя
