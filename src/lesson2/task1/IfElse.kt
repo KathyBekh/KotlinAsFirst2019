@@ -66,12 +66,12 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String {
-    return if (age < 0 || age > 200) "столько не живут"
+fun ageDescription(age: Int): String =
+    if (age < 0 || age > 200) "столько не живут"
     else if (age % 10 == 1 && age % 100 !in 10..20) "$age год"
     else if (age % 10 in 2..4 && age % 100 !in 10..20) "$age года"
     else "$age лет"
-}
+
 
 /**
  * Простая
@@ -143,12 +143,12 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int {
-    return if (a > b + c || b > a + c || c > a + b) -1
+fun triangleKind(a: Double, b: Double, c: Double): Int =
+    if (a > b + c || b > a + c || c > a + b) -1
     else if (sqr(a) == sqr(b) + sqr(c) || sqr(b) == sqr(a) + sqr(c) || sqr(c) == sqr(b) + sqr(a)) 1
     else if (sqr(a) > (sqr(b) + sqr(c)) || sqr(b) > (sqr(a) + sqr(c)) || sqr(c) > (sqr(b) + sqr(a))) 2
     else 0
-}
+
 
 /**
  * Средняя
