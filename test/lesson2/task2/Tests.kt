@@ -15,6 +15,14 @@ class Tests {
     }
 
     @Test
+    @Tag("Example")
+    fun factorial() {
+        assertEquals(6, factorial(3))
+        assertEquals(3628800, factorial(10))
+        assertEquals(24, factorial(4))
+        assertEquals(40320, factorial(8))
+    }
+    @Test
     @Tag("Easy")
     fun isNumberHappy() {
         assertTrue(isNumberHappy(1533))
