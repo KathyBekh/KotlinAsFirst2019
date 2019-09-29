@@ -110,7 +110,7 @@ fun lcm(m: Int, n: Int): Int {
  */
 fun minDivisor(n: Int): Int {
     if (n < 2) return 1
-    for (m in 2..n - 1) {
+    for (m in 2 until n / 2) {
         if (n % m == 0) return m
     }
     return n
@@ -182,7 +182,18 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var quantity = 0
+    var memberOfTheSequen = x
+    while (memberOfTheSequen != 1) {
+        quantity += 1
+        if (memberOfTheSequen % 2 == 0)
+            memberOfTheSequen /= 2
+        else memberOfTheSequen = 3 * memberOfTheSequen + 1
+
+    }
+    return quantity
+}
 
 /**
  * Средняя
@@ -213,7 +224,15 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var newNumbr = 0
+    var oldNumbr = n
+    while (oldNumbr != 0) {
+        newNumbr = newNumbr * 10 + oldNumbr % 10
+        oldNumbr /= 10
+    }
+    return newNumbr
+}
 
 /**
  * Средняя
@@ -224,7 +243,7 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean = revert(n) == n
 
 /**
  * Средняя
