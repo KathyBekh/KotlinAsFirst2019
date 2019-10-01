@@ -76,7 +76,7 @@ fun digitNumber(n: Int): Int {
     do {
         quantityOfNumber++
         newNumber /= 10
-    } while (newNumber > 0)
+    } while (newNumber != 0)
     return quantityOfNumber
 }
 
@@ -86,7 +86,23 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = if (n < 3) 1 else fib(n - 1) + fib(n - 2)
+fun fib(n: Int): Int {
+    var numberOneOfFibonacci = 1
+    var numberTwoOfFibonacci = 1
+    var nextNumberOfFibonacci = 0
+    var helperVariable = 0
+    return if (n < 3) numberOneOfFibonacci
+    else {
+        while (helperVariable < n - 2) {
+            nextNumberOfFibonacci = numberOneOfFibonacci + numberTwoOfFibonacci
+            numberOneOfFibonacci = numberTwoOfFibonacci
+            numberTwoOfFibonacci = nextNumberOfFibonacci
+            helperVariable += 1
+        }
+        return nextNumberOfFibonacci
+    }
+}
+
 
 /**
  * Простая
@@ -95,12 +111,15 @@ fun fib(n: Int): Int = if (n < 3) 1 else fib(n - 1) + fib(n - 2)
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    for (i in 1..m * n) {
-        if (i % m == 0 && i % n == 0)
-            return i
-
+    var numberOne = m
+    var numberTwo = n
+    while (numberOne != 0 && numberTwo != 0) {
+        if (numberOne < numberTwo)
+            numberTwo %= numberOne
+        else
+            numberOne %= numberTwo
     }
-    return m * n
+    return m * n / (numberOne + numberTwo)
 }
 
 /**
@@ -204,7 +223,7 @@ fun collatzSteps(x: Int): Int {
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double = kotlin.math.sin(x)
 
 /**
  * Средняя

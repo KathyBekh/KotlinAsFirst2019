@@ -62,10 +62,12 @@ class Tests {
         assertEquals(4, digitCountInNumber(5373393, 3))
     }
 
+
+
     @Test
     @Tag("Easy")
     fun digitNumber() {
-        assertEquals(1, digitNumber(0))
+        assertEquals(2, digitNumber(-12))
         assertEquals(1, digitNumber(7))
         assertEquals(2, digitNumber(10))
         assertEquals(2, digitNumber(99))
@@ -247,3 +249,4 @@ class Tests {
         assertEquals(2, fibSequenceDigit(20))
     }
 }
+
