@@ -2,6 +2,8 @@
 
 package lesson1.task1
 
+import lesson3.task1.fib
+import lesson3.task1.hasDifferentDigits
 import kotlin.math.*
 
 /**
@@ -49,7 +51,7 @@ fun quadraticRootProduct(a: Double, b: Double, c: Double): Double {
  * Пример главной функции
  */
 fun main() {
-    val x1x2 = quadraticRootProduct(1.0, 13.0, 42.0)
+    val x1x2 = hasDifferentDigits(1122335)
     println("Root product: $x1x2")
 }
 
@@ -78,6 +80,7 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
 fun angleInRadian(deg: Int, min: Int, sec: Int): Double = (deg + min / 60.0 + sec / 3600.0) * PI / 180.0
+
 
 /**
  * Тривиальная
@@ -132,3 +135,4 @@ fun accountInThreeYears(initial: Int, percent: Int): Double {
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
 fun numberRevert(number: Int): Int = number.toString().reversed().toInt()
+

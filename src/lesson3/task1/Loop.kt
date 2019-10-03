@@ -15,7 +15,7 @@ import kotlin.math.sqrt
 fun factorial(n: Int): Double {
     var result = 1.0
     for (i in 1..n) {
-        result = result * i // Please do not fix in master
+        result *= i // Please do not fix in master
     }
     return result
 }
@@ -140,14 +140,7 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    var maximumDivisor = 1
-    for (m in 2 until n - 1) {
-        if (n % m == 0 && m > maximumDivisor)
-            maximumDivisor = m
-    }
-    return maximumDivisor
-}
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая
@@ -223,7 +216,7 @@ fun collatzSteps(x: Int): Int {
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = kotlin.math.sin(x)
+fun sin(x: Double, eps: Double): Double = TODO()
 
 /**
  * Средняя
@@ -268,11 +261,34 @@ fun isPalindrome(n: Int): Boolean = revert(n) == n
  * Средняя
  *
  * Для заданного числа n определить, содержит ли оно различающиеся цифры.
- * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
+ * Например, 54 и 0 состоят из разных цифр, а 111 и 323 из одинаковых.
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var theLastNumericOfN = n % 10
+    var penultimateNumeric = n / 10
+    var theStartNumb = n
+    while (penultimateNumeric != 0) {
+        if (theLastNumericOfN == penultimateNumeric) return true
+        else penultimateNumeric /= 10
+    }
+    if (theStartNumb != 0) {
+        hasDifferentDigits(theStartNumb)
+        theStartNumb /= 10
+    }
+    return false
+}
+
+fun lengthOfNumber(num: Int): Int {
+    var count = 0
+    var initialNumber = num
+    while (initialNumber != 0) {
+        initialNumber /= 10
+        count += 1
+    }
+    return count
+}
 
 /**
  * Сложная
@@ -295,3 +311,10 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int = TODO()
+
+
+fun theFirstNumericOfNumber(numb: Int): Int = ((numb * 0.1) * 10).toInt()
+
+
+
+
