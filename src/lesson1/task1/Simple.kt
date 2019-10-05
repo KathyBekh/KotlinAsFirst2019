@@ -2,6 +2,7 @@
 
 package lesson1.task1
 
+import lesson2.task1.segmentLength
 import lesson3.task1.fib
 import lesson3.task1.fibSequenceDigit
 import lesson3.task1.hasDifferentDigits
@@ -53,7 +54,7 @@ fun quadraticRootProduct(a: Double, b: Double, c: Double): Double {
  * Пример главной функции
  */
 fun main() {
-    val x1x2 = fibSequenceDigit(7)
+    val x1x2 = segmentLength(3, 6, 0, 9)
     println("Root product: $x1x2")
 }
 
