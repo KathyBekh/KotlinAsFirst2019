@@ -3,9 +3,8 @@
 package lesson3.task1
 
 import lesson1.task1.sqr
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.math.sqrt
+import java.lang.Math.pow
+import kotlin.math.*
 
 /**
  * Пример
@@ -218,6 +217,7 @@ fun collatzSteps(x: Int): Int {
  */
 fun sin(x: Double, eps: Double): Double = TODO()
 
+
 /**
  * Средняя
  *
@@ -228,6 +228,7 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
 fun cos(x: Double, eps: Double): Double = TODO()
+
 
 /**
  * Средняя
@@ -266,16 +267,17 @@ fun isPalindrome(n: Int): Boolean = revert(n) == n
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    var theLastNumericOfN = n % 10
-    var penultimateNumeric = n / 10
     var theStartNumb = n
-    while (penultimateNumeric != 0) {
-        if (theLastNumericOfN == penultimateNumeric) return true
-        else penultimateNumeric /= 10
-    }
-    if (theStartNumb != 0) {
-        hasDifferentDigits(theStartNumb)
+    var theLastNumericOfN = theStartNumb % 10
+    var penultimateNumeric = theStartNumb / 10
+    for (i in 1..lengthOfNumber(theStartNumb)) {
+        while (penultimateNumeric != 0) {
+            if (theLastNumericOfN == penultimateNumeric % 10) return true
+            else penultimateNumeric /= 10
+        }
         theStartNumb /= 10
+        penultimateNumeric = theStartNumb / 10
+        theLastNumericOfN = theStartNumb % 10
     }
     return false
 }
@@ -299,7 +301,17 @@ fun lengthOfNumber(num: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var indexNumber = 1
+    var differenceOfIndexNumber: Int
+    var indexNumberForSqr = 0
+    while (indexNumber <= n) {
+        indexNumber += lengthOfNumber(sqr(indexNumberForSqr))
+        indexNumberForSqr += 1
+    }
+    differenceOfIndexNumber = indexNumber - n - 1
+    return (sqr(indexNumberForSqr - 1) / 10.0.pow(differenceOfIndexNumber.toDouble()).toInt()) % 10
+}
 
 /**
  * Сложная
@@ -310,11 +322,15 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
-
-
-fun theFirstNumericOfNumber(numb: Int): Int = ((numb * 0.1) * 10).toInt()
-
-
-
+fun fibSequenceDigit(n: Int): Int {
+    var indexNumber = 0
+    var differenceOfIndexNumber: Int
+    var indexNumberForFib = 0
+    while (indexNumber <= n) {
+        indexNumber += lengthOfNumber(fib(indexNumberForFib))
+        indexNumberForFib += 1
+    }
+    differenceOfIndexNumber = (indexNumber - n) - 1
+    return (fib(indexNumberForFib - 1) / 10.0.pow(differenceOfIndexNumber.toDouble()).toInt() % 10)
+}
 

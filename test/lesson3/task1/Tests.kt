@@ -63,7 +63,6 @@ class Tests {
     }
 
 
-
     @Test
     @Tag("Easy")
     fun digitNumber() {
@@ -184,6 +183,7 @@ class Tests {
         assertNotEquals(kotlin.math.sin(-0.5), sin(-0.5, 1.0))
     }
 
+
     @Test
     @Tag("Normal")
     fun cos() {
@@ -220,10 +220,10 @@ class Tests {
     @Tag("Normal")
     fun hasDifferentDigits() {
         assertTrue(hasDifferentDigits(323))
-        assertTrue(hasDifferentDigits(54))
+        assertTrue(hasDifferentDigits(777))
         assertTrue(hasDifferentDigits(222266666))
         assertFalse(hasDifferentDigits(0))
-        assertFalse(hasDifferentDigits(777))
+        assertFalse(hasDifferentDigits(54))
         assertTrue(hasDifferentDigits(31122))
     }
 

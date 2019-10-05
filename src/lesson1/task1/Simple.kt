@@ -3,7 +3,9 @@
 package lesson1.task1
 
 import lesson3.task1.fib
+import lesson3.task1.fibSequenceDigit
 import lesson3.task1.hasDifferentDigits
+import lesson3.task1.squareSequenceDigit
 import kotlin.math.*
 
 /**
@@ -51,9 +53,11 @@ fun quadraticRootProduct(a: Double, b: Double, c: Double): Double {
  * Пример главной функции
  */
 fun main() {
-    val x1x2 = hasDifferentDigits(1122335)
+    val x1x2 = fibSequenceDigit(7)
     println("Root product: $x1x2")
 }
+
+
 
 /**
  * Тривиальная
