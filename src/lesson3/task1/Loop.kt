@@ -86,20 +86,21 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var numberOneOfFibonacci = 1
-    var numberTwoOfFibonacci = 1
-    var nextNumberOfFibonacci = 0
-    var helperVariable = 0
-    return if (n < 3) numberOneOfFibonacci
-    else {
-        while (helperVariable < n - 2) {
-            nextNumberOfFibonacci = numberOneOfFibonacci + numberTwoOfFibonacci
-            numberOneOfFibonacci = numberTwoOfFibonacci
-            numberTwoOfFibonacci = nextNumberOfFibonacci
-            helperVariable += 1
-        }
-        return nextNumberOfFibonacci
+    var firstOfFibonacci = 1
+    var secondOfFibonacci = 1
+    var nextOfFibonacci = 0
+    var couter = 0
+    if (n < 3) {
+        return firstOfFibonacci
     }
+
+    while (couter < n - 2) {
+        nextOfFibonacci = firstOfFibonacci + secondOfFibonacci
+        firstOfFibonacci = secondOfFibonacci
+        secondOfFibonacci = nextOfFibonacci
+        couter += 1
+    }
+    return nextOfFibonacci
 }
 
 
@@ -270,7 +271,7 @@ fun hasDifferentDigits(n: Int): Boolean {
     var theStartNumb = n
     var theLastNumericOfN = theStartNumb % 10
     var penultimateNumeric = theStartNumb / 10
-    for (i in 1..lengthOfNumber(theStartNumb)) {
+    for (i in 1..digitNumber(theStartNumb)) {
         while (penultimateNumeric != 0) {
             if (theLastNumericOfN == penultimateNumeric % 10) return true
             else penultimateNumeric /= 10
@@ -282,15 +283,6 @@ fun hasDifferentDigits(n: Int): Boolean {
     return false
 }
 
-fun lengthOfNumber(num: Int): Int {
-    var count = 0
-    var initialNumber = num
-    while (initialNumber != 0) {
-        initialNumber /= 10
-        count += 1
-    }
-    return count
-}
 
 /**
  * Сложная
@@ -303,14 +295,13 @@ fun lengthOfNumber(num: Int): Int {
  */
 fun squareSequenceDigit(n: Int): Int {
     var indexNumber = 1
-    var differenceOfIndexNumber: Int
     var indexNumberForSqr = 0
     while (indexNumber <= n) {
-        indexNumber += lengthOfNumber(sqr(indexNumberForSqr))
+        indexNumber += digitNumber(sqr(indexNumberForSqr))
         indexNumberForSqr += 1
     }
-    differenceOfIndexNumber = indexNumber - n - 1
-    return (sqr(indexNumberForSqr - 1) / 10.0.pow(differenceOfIndexNumber.toDouble()).toInt()) % 10
+    val differenceOfIndexNumber = indexNumber - n - 1
+    return (sqr(indexNumberForSqr) / 10.0.pow(differenceOfIndexNumber.toDouble()).toInt()) % 10
 }
 
 /**
@@ -324,13 +315,12 @@ fun squareSequenceDigit(n: Int): Int {
  */
 fun fibSequenceDigit(n: Int): Int {
     var indexNumber = 0
-    var differenceOfIndexNumber: Int
     var indexNumberForFib = 0
     while (indexNumber <= n) {
-        indexNumber += lengthOfNumber(fib(indexNumberForFib))
+        indexNumber += digitNumber(fib(indexNumberForFib))
         indexNumberForFib += 1
     }
-    differenceOfIndexNumber = (indexNumber - n) - 1
+    val differenceOfIndexNumber = (indexNumber - n) - 1
     return (fib(indexNumberForFib - 1) / 10.0.pow(differenceOfIndexNumber.toDouble()).toInt() % 10)
 }
 
