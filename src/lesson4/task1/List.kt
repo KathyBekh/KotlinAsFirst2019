@@ -247,8 +247,9 @@ fun factorize(n: Int): List<Int> {
     var primeFactors = mutableListOf<Int>()
     var nu = n
     while (nu != 1) {
-        primeFactors.add(minDivisor(nu))
-        nu = maxDivisor(nu)
+        val minDiv = minDivisor(nu)
+        primeFactors.add(minDiv)
+        nu /= minDiv
     }
     return primeFactors.sorted()
 }
@@ -260,7 +261,10 @@ fun factorize(n: Int): List<Int> {
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = factorize(n).toString()
+fun factorizeToString(n: Int): String =
+    factorize(n).toString()
+        .filter { it != ',' && it != '[' && it != ']' }
+        .replace(' ', '*')
 
 /**
  * Средняя

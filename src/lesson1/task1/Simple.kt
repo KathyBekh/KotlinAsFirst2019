@@ -7,6 +7,8 @@ import lesson3.task1.fib
 import lesson3.task1.fibSequenceDigit
 import lesson3.task1.hasDifferentDigits
 import lesson3.task1.squareSequenceDigit
+import lesson4.task1.factorize
+import lesson4.task1.factorizeToString
 import kotlin.math.*
 
 /**
@@ -54,7 +56,7 @@ fun quadraticRootProduct(a: Double, b: Double, c: Double): Double {
  * Пример главной функции
  */
 fun main() {
-    val x1x2 = segmentLength(3, 6, 0, 9)
+    val x1x2 = factorizeToString(75)
     println("Root product: $x1x2")
 }
 
