@@ -86,21 +86,21 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var firstOfFibonacci = 1
-    var secondOfFibonacci = 1
-    var nextOfFibonacci = 0
+    var first = 1
+    var second = 1
+    var next = 0
     var couter = 0
     if (n < 3) {
-        return firstOfFibonacci
+        return first
     }
 
     while (couter < n - 2) {
-        nextOfFibonacci = firstOfFibonacci + secondOfFibonacci
-        firstOfFibonacci = secondOfFibonacci
-        secondOfFibonacci = nextOfFibonacci
+        next = first + second
+        first = second
+        second = next
         couter += 1
     }
-    return nextOfFibonacci
+    return next
 }
 
 

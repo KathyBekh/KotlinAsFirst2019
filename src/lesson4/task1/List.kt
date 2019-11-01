@@ -186,11 +186,8 @@ fun MutableList<Double>.mapInPlace(transform: (Double) -> Double): MutableList<D
  */
 fun times(a: List<Int>, b: List<Int>): Int {
     var scalarProduct = 0
-    if (a.isEmpty() && b.isEmpty()) scalarProduct
-    else {
-        for (i in a.indices)
-            scalarProduct += a[i] * b[i]
-    }
+    for (i in a.indices)
+        scalarProduct += a[i] * b[i]
     return scalarProduct
 }
 
@@ -251,7 +248,7 @@ fun factorize(n: Int): List<Int> {
         primeFactors.add(minDiv)
         nu /= minDiv
     }
-    return primeFactors.sorted()
+    return primeFactors
 }
 
 /**
