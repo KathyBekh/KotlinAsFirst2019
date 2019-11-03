@@ -272,6 +272,14 @@ fun factorizeToString(n: Int): String =
  */
 fun convert(n: Int, base: Int): List<Int> {
     val result = mutableListOf<Int>()
+    var num = n
+    while (num != 0) {
+        result.add(num % base)
+        num /= base
+    }
+    return result.toList().reversed()
+}
+/*
     var nToString = n.toString(base).map(Character::getNumericValue)
 
     for (element in nToString) {
@@ -279,6 +287,8 @@ fun convert(n: Int, base: Int): List<Int> {
     }
     return result.toList()
 }
+
+ */
 
 /**
  * Сложная
@@ -291,8 +301,47 @@ fun convert(n: Int, base: Int): List<Int> {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String = TODO()
-
+fun convertToString(n: Int, base: Int): String {
+    val alphabet = arrayOf(
+        'a',
+        'b',
+        'c',
+        'd',
+        'e',
+        'f',
+        'g',
+        'h',
+        'i',
+        'j',
+        'k',
+        'l',
+        'm',
+        'n',
+        'o',
+        'p',
+        'q',
+        'r',
+        's',
+        't',
+        'u',
+        'v',
+        'w',
+        'x',
+        'y',
+        'z'
+    )
+    val something = convert(n, base)
+    return something.map {
+        if (it > 9) {
+            alphabet[it - 10]
+        } else {
+            it.toString()[0]
+        }
+    }.fold("", { acc, c ->
+        acc + c
+    })
+}
+//.joinToString(separator = "")
 
 /**
  * Средняя
@@ -312,7 +361,7 @@ fun decimal(digits: List<Int>, base: Int) =
  * из системы счисления с основанием base в десятичную.
  * Цифры более 9 представляются латинскими строчными буквами:
  * 10 -> a, 11 -> b, 12 -> c и так далее.
- * Например: str = "13c", base = 14 -> 250
+ * Например: str = "13c', base = 14 -> 250
  *
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, str.toInt(base)), запрещается.
