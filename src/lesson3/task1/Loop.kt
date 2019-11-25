@@ -3,7 +3,6 @@
 package lesson3.task1
 
 import lesson1.task1.sqr
-import java.lang.Math.pow
 import kotlin.math.*
 
 /**
@@ -211,12 +210,20 @@ fun collatzSteps(x: Int): Int {
  * Средняя
  *
  * Для заданного x рассчитать с заданной точностью eps
- * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
+ * sin(x) = x - x^3 / 3! + x^5 / 5!- x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю.
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    var sinX = x
+    var pover = 3
+    while (abs(sinX) > eps) {
+        sinX -= sinX.pow(pover) / factorial(pover)
+        pover += 2
+    }
+    return sinX
+}
 
 
 /**
@@ -294,14 +301,14 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var indexNumber = 1
-    var indexNumberForSqr = 0
-    while (indexNumber <= n) {
-        indexNumber += digitNumber(sqr(indexNumberForSqr))
-        indexNumberForSqr += 1
+    var i = 1
+    var toSquere = 1
+    while (i <= n) {
+        i += digitNumber(sqr(toSquere))
+        toSquere += 1
     }
-    val differenceOfIndexNumber = indexNumber - n - 1
-    return (sqr(indexNumberForSqr) / 10.0.pow(differenceOfIndexNumber.toDouble()).toInt()) % 10
+    val differenceOfIndexNumber = i - n - 1
+    return (sqr(toSquere - 1) / 10.0.pow(differenceOfIndexNumber.toDouble()).toInt()) % 10
 }
 
 /**

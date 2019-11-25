@@ -241,7 +241,7 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> {
  * Множители в списке должны располагаться по возрастанию.
  */
 fun factorize(n: Int): List<Int> {
-    var primeFactors = mutableListOf<Int>()
+    val primeFactors = mutableListOf<Int>()
     var nu = n
     while (nu != 1) {
         val minDiv = minDivisor(nu)
@@ -259,9 +259,9 @@ fun factorize(n: Int): List<Int> {
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
 fun factorizeToString(n: Int): String =
-    factorize(n).toString()
-        .filter { it != ',' && it != '[' && it != ']' }
-        .replace(' ', '*')
+    factorize(n).joinToString(separator = "*")
+//        .filter { it != ',' && it != '[' && it != ']' }
+//        .replace(' ', '*')
 
 /**
  * Средняя
@@ -273,22 +273,14 @@ fun factorizeToString(n: Int): String =
 fun convert(n: Int, base: Int): List<Int> {
     val result = mutableListOf<Int>()
     var num = n
-    while (num != 0) {
-        result.add(num % base)
-        num /= base
-    }
+    if (n == 0) result.add(0) else
+        while (num != 0) {
+            result.add(num % base)
+            num /= base
+        }
     return result.toList().reversed()
 }
-/*
-    var nToString = n.toString(base).map(Character::getNumericValue)
 
-    for (element in nToString) {
-        result.add(element)
-    }
-    return result.toList()
-}
-
- */
 
 /**
  * Сложная
@@ -337,11 +329,10 @@ fun convertToString(n: Int, base: Int): String {
         } else {
             it.toString()[0]
         }
-    }.fold("", { acc, c ->
-        acc + c
-    })
+    }.joinToString(separator = "")
 }
-//.joinToString(separator = "")
+//.fold("", { acc, c ->    acc + c
+//    })
 
 /**
  * Средняя

@@ -58,10 +58,16 @@ fun quadraticRootProduct(a: Double, b: Double, c: Double): Double {
  * Пример главной функции
  */
 fun main() {
-    val x1x2 = convertToString(1257, 28)
+//    val dict = mutableMapOf<Int, String>()
+//    dict[3] = "Vasya"
+//    dict[5] = "Katya"
+//    dict[3] = "Petya"
+//    dict.forEach { (key, value) -> println("Key: $key, value: $value") }
+//    println(dict)
+
+    val x1x2 = squareSequenceDigit(12)
     println("Root product: $x1x2")
 }
-
 
 
 /**
