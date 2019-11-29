@@ -115,7 +115,7 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
  */
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
     a.forEach { (key, value) ->
-        if (key !in b || b[key] != value) {
+        if (b[key] != value) {
             return false
         }
     }
@@ -138,7 +138,7 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): Unit {
     b.forEach { (key, value) ->
-        if (a.containsKey(key) && a[key] == value) {
+        if (a[key] == value) {
             a.remove(key)
         }
     }
@@ -221,7 +221,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
     var minPrice = Double.MAX_VALUE
     var minName: String? = null
     stuff.forEach { (name, stats) ->
-        if (stats.first == kind && stats.second < minPrice) {
+        if (stats.first == kind && stats.second <= minPrice) {
             minName = name
             minPrice = stats.second
         }

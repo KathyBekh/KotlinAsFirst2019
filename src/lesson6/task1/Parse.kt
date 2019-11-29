@@ -3,8 +3,6 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
-import java.lang.NumberFormatException
-import javax.xml.stream.events.Characters
 
 /**
  * Пример
@@ -47,8 +45,8 @@ fun timeSecondsToStr(seconds: Int): String {
  * Пример: консольный ввод
  */
 fun main() {
-    println(bestHighJump("220 + 224 %+ 228 %- 230 + 232 %%- 234 %"))
-//    println(dateStrToDigit("15 июля 2019"))
+//    println(bestHighJump("220 + 224 %+ 228 %- 230 + 232 %%- 234 %"))
+    println(dateDigitToStr("15.02.2016"))
 //    println("Введите время в формате ЧЧ:ММ:СС")
 //    val line = readLine()
 //    if (line != null) {
@@ -67,7 +65,7 @@ fun main() {
 /**
  * Средняя
  *
- * Дата представлена строкой вида "15 июля 2016".
+ * Дата представлена строкой вида "29 февраля 2016".
  * Перевести её в цифровой формат "15.07.2016".
  * День и месяц всегда представлять двумя цифрами, например: 03.04.2011.
  * При неверном формате входной строки вернуть пустую строку.
@@ -75,8 +73,9 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
+//локальные тесты проходит
 fun dateStrToDigit(str: String): String {
-    val months = listOf<String>(
+    val months = listOf(
         "января",
         "февраля",
         "марта",
@@ -90,23 +89,25 @@ fun dateStrToDigit(str: String): String {
         "ноября",
         "декабря"
     )
-//    return try {
-//        val parts = str.split(" ")
-//        val num = parts[0].toInt()
-//        var month = parts[1]
-//        val year = parts[2].toInt()
-//
-//        if (month in months) {
-//            month = months.indexOf(month).toString()
-//            month = month.toInt()
-//            if (num in 1..daysInMonth(month + 1, year))
-//                month = month.toInt() + 1
-//        }
-//        return String.format("%02d.%02d.%02d", num, month, year)
-//    } catch (e: NumberFormatException) {
-    return ""
+    if (!str.matches(Regex("""(\d+\s[а-я]+\s\d+)"""))) {
+        return ""
+    }
 
-//    }
+    val partsOfStr = str.split(" ")
+    val day = partsOfStr[0].toInt()
+    val month = partsOfStr[1]
+    val year = partsOfStr[2].toInt()
+
+    if (month !in months) {
+        return ""
+    }
+
+    val monthToInt = months.indexOf(month) + 1
+    return if (day in 0..daysInMonth(monthToInt, year)) {
+        String.format("%02d.%02d.%02d", day, monthToInt, year)
+    } else {
+        ""
+    }
 }
 
 
@@ -120,7 +121,40 @@ fun dateStrToDigit(str: String): String {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+//локальные тесты проходит
+fun dateDigitToStr(digital: String): String {
+    if (!digital.matches(Regex("""(\d+[.]+\d+[.]+\d+)"""))) return ""
+    val partsOfStr = digital.split(".")
+    val months = mapOf(
+        1 to "января",
+        2 to "февраля",
+        3 to "марта",
+        4 to "апреля",
+        5 to "мая",
+        6 to "июня",
+        7 to "июля",
+        8 to "августа",
+        9 to "сентября",
+        10 to "октября",
+        11 to "ноября",
+        12 to "декабря"
+    )
+    val day = partsOfStr[0].toInt()
+    val month = partsOfStr[1].toInt()
+    val year = partsOfStr[2].toInt()
+    var mon = ""
+
+    if (!months.containsKey(month)) {
+        return ""
+    } else mon = months[month].toString()
+
+    return if (day in 0..daysInMonth(month, year)) {
+        String.format("$day $mon $year")
+    } else {
+        ""
+    }
+}
+
 
 /**
  * Средняя
@@ -136,7 +170,12 @@ fun dateDigitToStr(digital: String): String = TODO()
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+//локальные тесты проходит
+fun flattenPhoneNumber(phone: String): String {
+    val symbol = listOf('+', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0')
+    return if (!phone.matches(Regex("""(\+*\d*(\(\d+\s*[-]*\s*\d*\))?\s*[-]*)*"""))) ""
+    else phone.filter { it in symbol }
+}
 
 /**
  * Средняя
@@ -150,29 +189,29 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  */
 fun bestLongJump(jumps: String): Int {
     var result = -1
-    var num = 0
-    val jump = jumps.split(" ")
-    val symbol = listOf<String>("-", "%")
-    for (i in jump) {
-        if (i in symbol || numberOrNot(i)) {
-            if (i in symbol) continue else {
-                num = i.toInt()
-                if (num > result) result = num
-            }
-        } else return -1
-    }
+//    var num = 0
+//    val jump = jumps.split(" ")
+//    val symbol = listOf<String>("-", "%")
+//    for (i in jump) {
+//        if (i in symbol || numberOrNot(i)) {
+//            if (i in symbol) continue else {
+//                num = i.toInt()
+//                if (num > result) result = num
+//            }
+//        } else return -1
+//    }
     return result
 
 }
 
-fun numberOrNot(s: String): Boolean {
-    return try {
-        s.toInt()
-        true
-    } catch (e: NumberFormatException) {
-        false
-    }
-}
+//fun numberOrNot(s: String): Boolean {
+//    return try {
+//        s.toInt()
+//        true
+//    } catch (e: NumberFormatException1) {
+//        false
+//    }
+//}
 
 /**
  * Сложная
@@ -213,15 +252,15 @@ fun bestHighJump(jumps: String): Int {
 fun plusMinus(expression: String): Int {
     val soursList = expression.split(" ")
     var result = soursList[0].toInt()
-    if (!expression.matches(Regex("""(\d+\s[-+]\s)*\d+"""))) throw IllegalArgumentException()
-    if (soursList.size == 1) result else {
-        for (i in soursList.indices) {
-            when (soursList[i]) {
-                "+" -> result += soursList[i + 1].toInt()
-                "-" -> result -= soursList[i + 1].toInt()
-            }
-        }
-    }
+//    if (!expression.matches(Regex("""(\d+\s[-+]\s)*\d+"""))) throw IllegalArgumentException()
+//    if (soursList.size == 1) result else {
+//        for (i in soursList.indices) {
+//            when (soursList[i]) {
+//                "+" -> result += soursList[i + 1].toInt()
+//                "-" -> result -= soursList[i + 1].toInt()
+//            }
+//        }
+//    }
     return result
 }
 
@@ -286,7 +325,7 @@ fun mostExpensive(description: String): String {
  * Вернуть -1, если roman не является корректным римским числом
  */
 fun fromRoman(roman: String): Int {
-    var result = 0
+    var result = -1;
 
     return result
 }

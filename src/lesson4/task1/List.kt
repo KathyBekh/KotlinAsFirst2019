@@ -273,7 +273,8 @@ fun factorizeToString(n: Int): String =
 fun convert(n: Int, base: Int): List<Int> {
     val result = mutableListOf<Int>()
     var num = n
-    if (n == 0) result.add(0) else
+    if (n == 0) result.add(0)
+    else
         while (num != 0) {
             result.add(num % base)
             num /= base
@@ -358,6 +359,15 @@ fun decimal(digits: List<Int>, base: Int) =
  * (например, str.toInt(base)), запрещается.
  */
 fun decimalFromString(str: String, base: Int): Int = TODO()
+//{
+//    val map: MutableMap<String, Int> = mutableMapOf()
+//    map["I"] = 1
+//    val map2 = mapOf<String, Int>("I" to 1, "II" to 2)
+//    val s = ":-)"
+//    s.forEachIndexed { i, c ->
+//        s.substring(i, i + 1)
+//    }
+//}
 
 /**
  * Сложная
