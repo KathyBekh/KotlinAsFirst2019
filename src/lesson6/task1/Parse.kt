@@ -190,7 +190,7 @@ fun flattenPhoneNumber(phone: String): String {
 //локальные тесты проходит
 fun bestLongJump(jumps: String): Int {
     var result = -1
-    if (!jumps.matches(Regex("""(\d*\s*[-%]*\s*)*"""))) return -1
+    if (!jumps.matches(Regex("""(\d*\s*[-%]*\s*)*""")) || jumps == "") return -1
     val jump = jumps.split(" ")
     var numb: Int
     for (i in jump) {
@@ -275,14 +275,20 @@ fun plusMinus(expression: String): Int {
 fun firstDuplicateIndex(str: String): Int {
     val listOfString = str.toUpperCase().split(" ")
     var result = -1
-    return if (listOfString.isEmpty() || listOfString.size == 1) result
+    if (listOfString.isEmpty() || listOfString.size == 1) return result
     else {
-        for (i in listOfString.indices) {
-            if (listOfString[i] == listOfString[i + 1]) return result + 1
+        var rep = listOfString[0]
+        var repeat = 0
+        for (i in 1 until listOfString.size) {
+            if (listOfString[i] == rep) repeat += 1
             result += listOfString[i].length + 1
+            rep = listOfString[i]
         }
-        result
+        if (repeat > 0) return result + 1
+        else
+            result = -1
     }
+    return result
 }
 
 /**

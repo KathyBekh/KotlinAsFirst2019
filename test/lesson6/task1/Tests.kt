@@ -71,6 +71,7 @@ class Tests {
     @Test
     @Tag("Normal")
     fun bestLongJump() {
+        assertEquals(-1, bestLongJump(""))
         assertEquals(717, bestLongJump("706 % - 717 - 703"))
         assertEquals(-1, bestLongJump("% - - % -"))
         assertEquals(754, bestLongJump("700 717 707 % 754"))
@@ -114,11 +115,12 @@ class Tests {
     @Test
     @Tag("Hard")
     fun mostExpensive() {
+        assertEquals("", mostExpensive("a 0"))
         assertEquals("", mostExpensive(""))
         assertEquals("Курица", mostExpensive("Хлеб 39.9; Молоко 62.5; Курица 184.0; Конфеты 89.9"))
         assertEquals("Вино", mostExpensive("Вино 255.0"))
         assertEquals("", mostExpensive("Вино "))
-        assertEquals("", mostExpensive("a 0"))
+
     }
 
     @Test
