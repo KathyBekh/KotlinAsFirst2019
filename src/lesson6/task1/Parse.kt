@@ -44,8 +44,8 @@ fun timeSecondsToStr(seconds: Int): String {
 /**
  * Пример: консольный ввод
  */
-//fun main() {
-//    println(bestHighJump("220 + 224 %+ 228 %- 230 + 232 %%- 234 %"))
+fun main() {
+    println(fromRoman("MCMLXXVIII"))
 //    println(bestLongJump("700 - 700"))
 //    println("Введите время в формате ЧЧ:ММ:СС")
 //    val line = readLine()
@@ -59,7 +59,7 @@ fun timeSecondsToStr(seconds: Int): String {
 //    } else {
 //        println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
 //    }
-//}
+}
 
 
 /**
@@ -273,23 +273,24 @@ fun plusMinus(expression: String): Int {
  */
 //локальные тесты проходит
 fun firstDuplicateIndex(str: String): Int {
-    val listOfString = str.toUpperCase().split(" ")
-    var result = -1
-    if (listOfString.isEmpty() || listOfString.size == 1) return result
-    else {
-        var rep = listOfString[0]
-        var repeat = 0
-        for (i in 1 until listOfString.size) {
-            if (listOfString[i] == rep) repeat += 1
-            result += listOfString[i].length + 1
-            rep = listOfString[i]
-        }
-        if (repeat > 0) return result + 1
-        else
-            result = -1
+    val words = str.toUpperCase().split(" ")
+    if (words.size <= 1) {
+        return -1
     }
-    return result
+
+    var position = 0
+    for (i in 0 until words.size - 1) {
+        val current = words[i]
+        val next = words[i + 1]
+        if (current == next) {
+            return position
+        }
+        position += current.length + 1
+    }
+
+    return -1
 }
+
 
 /**
  * Сложная
@@ -304,15 +305,17 @@ fun firstDuplicateIndex(str: String): Int {
  */
 //локальные тесты проходит
 fun mostExpensive(description: String): String {
-    if (!description.matches(Regex("""([а-яА-Я]+\s+[0-9]*\.+[0-9]*+[;]*\s*)*"""))) return ""
+    if (!description.matches(Regex("""(\pL+\s+[0-9]+\.*[0-9]*;*\s*)*"""))) {
+        return ""
+    }
     if (description == "") return ""
     val listOfProducts = description.split("; ")
     var max = 0.0
-    var expensive = "yes"
-    for (i in listOfProducts) {
-        val productAndCost = i.split(" ")
+    var expensive = ""
+    for (product in listOfProducts) {
+        val productAndCost = product.split(" ")
         val cost = productAndCost[1].toDouble()
-        if (cost > max) {
+        if (cost >= max) {
             max = cost
             expensive = productAndCost[0]
         }
@@ -333,21 +336,38 @@ fun mostExpensive(description: String): String {
  */
 //еще не решенная
 fun fromRoman(roman: String): Int {
+    if (!roman.matches(Regex("""[IVXLCDM]+"""))) {
+        return -1
+    }
     val romanNumber = mapOf(
-        'I' to 1,
-        'V' to 5,
-        'X' to 10,
-        'L' to 50,
-        'C' to 100,
-        'D' to 500,
-        'M' to 1000
+        "I" to 1,
+        "IV" to 4,
+        "V" to 5,
+        "IX" to 9,
+        "X" to 10,
+        "XL" to 40,
+        "L" to 50,
+        "XC" to 90,
+        "C" to 100,
+        "CD" to 400,
+        "D" to 500,
+        "CM" to 900,
+        "M" to 1000
     )
-    var result = 0;
-    for (i in roman) {
-        if (i !in romanNumber) return -1
-//        else {
-//            if (romanNumber[i] == romanNumber[i])
-//        }
+
+    val listOfNum = roman.map { it.toString() }
+    var result: Int = romanNumber[listOfNum[0]]!!
+    if (listOfNum.size > 1) {
+        var i = 1
+        while (i < listOfNum.size - 1) {
+            if (romanNumber[listOfNum[i]]!! < romanNumber[listOfNum[i + 1]]!!) {
+                result += romanNumber[listOfNum[i + 1]]!! - romanNumber[listOfNum[i]]!!
+                i += 2
+            }
+            result += romanNumber[listOfNum[i]]!!
+            ++i
+        }
+        result += romanNumber[listOfNum.last()]!!
     }
 
     return result
@@ -389,7 +409,7 @@ fun fromRoman(roman: String): Int {
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-//что-то не догоняю. надо ещё подцмать!
+//что-то не догоняю. надо ещё подумать!
 fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
     var result = mutableListOf<Int>()
     val symbols = listOf<String>(">", "<", "+", "-", "[", "]", " ")
@@ -403,11 +423,4 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
 
 
     return result.toList()
-}
-
-fun main() {
-    println(bestHighJump("220 + 224 %+ 228 %-2546 232 %%- 234 %"))
-//    println(fromRoman("MCMLXXVII"))
-//    println(mostExpensive("356 Вино"))
-//    println(plusMinus("2 + 31 - 40 + 13"))
 }
