@@ -339,35 +339,40 @@ fun fromRoman(roman: String): Int {
     if (!roman.matches(Regex("""[IVXLCDM]+"""))) {
         return -1
     }
-    val romanNumber = mapOf(
-        "I" to 1,
-        "IV" to 4,
-        "V" to 5,
-        "IX" to 9,
-        "X" to 10,
-        "XL" to 40,
-        "L" to 50,
-        "XC" to 90,
-        "C" to 100,
-        "CD" to 400,
-        "D" to 500,
-        "CM" to 900,
-        "M" to 1000
+
+    val romanDigits = mapOf(
+        'I' to 1,
+        'V' to 5,
+        'X' to 10,
+        'L' to 50,
+        'C' to 100,
+        'D' to 500,
+        'M' to 1000
     )
 
-    val listOfNum = roman.map { it.toString() }
-    var result: Int = romanNumber[listOfNum[0]]!!
-    if (listOfNum.size > 1) {
-        var i = 1
-        while (i < listOfNum.size - 1) {
-            if (romanNumber[listOfNum[i]]!! < romanNumber[listOfNum[i + 1]]!!) {
-                result += romanNumber[listOfNum[i + 1]]!! - romanNumber[listOfNum[i]]!!
+    val specialCases = mapOf(
+        "IV" to 4,
+        "IX" to 9,
+        "XL" to 40,
+        "XC" to 90,
+        "CD" to 400,
+        "CM" to 900
+    )
+
+    var result: Int = 0
+    var i = 0
+    while (i < roman.length) {
+        if (i != roman.length - 1) {
+            val twoDigits = roman.substring(i, i + 2)
+            if (twoDigits in specialCases) {
+                result += specialCases[twoDigits]!!
                 i += 2
+            } else {
+                result += romanDigits[roman[i++]]!!
             }
-            result += romanNumber[listOfNum[i]]!!
-            ++i
+        } else {
+            result += romanDigits[roman[i++]]!!
         }
-        result += romanNumber[listOfNum.last()]!!
     }
 
     return result
