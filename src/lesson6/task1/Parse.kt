@@ -361,18 +361,18 @@ fun fromRoman(roman: String): Int {
 
     var result: Int = 0
     var i = 0
-    while (i < roman.length) {
-        if (i != roman.length - 1) {
-            val twoDigits = roman.substring(i, i + 2)
-            if (twoDigits in specialCases) {
-                result += specialCases[twoDigits]!!
-                i += 2
-            } else {
-                result += romanDigits[roman[i++]]!!
-            }
+    while (i < roman.length - 1) {
+        val twoDigits = roman.substring(i, i + 2)
+        if (twoDigits in specialCases) {
+            result += specialCases[twoDigits]!!
+            i += 2
         } else {
             result += romanDigits[roman[i++]]!!
         }
+    }
+
+    if (i == roman.length - 1) {
+        result += romanDigits[roman[i++]]!!
     }
 
     return result
