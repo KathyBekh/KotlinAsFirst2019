@@ -5,6 +5,7 @@ package lesson4.task1
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import lesson2.task2.brickPasses
+import lesson3.task1.digitNumber
 import lesson3.task1.maxDivisor
 import lesson3.task1.minDivisor
 import kotlin.math.pow
@@ -359,15 +360,7 @@ fun decimal(digits: List<Int>, base: Int) =
  * (например, str.toInt(base)), запрещается.
  */
 fun decimalFromString(str: String, base: Int): Int = TODO()
-//{
-//    val map: MutableMap<String, Int> = mutableMapOf()
-//    map["I"] = 1
-//    val map2 = mapOf<String, Int>("I" to 1, "II" to 2)
-//    val s = ":-)"
-//    s.forEachIndexed { i, c ->
-//        s.substring(i, i + 1)
-//    }
-//}
+
 
 /**
  * Сложная
@@ -386,5 +379,61 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+//тесты проходит
+fun russian(n: Int): String {
+    val firstPartN = toWord(n / 1000).toMutableList()
+    val secondPartN = toWord(n % 1000).toMutableList()
+    if (firstPartN.isNotEmpty()) {
+        when {
+            n / 1000 % 10 == 1 -> {
+                firstPartN.remove("один")
+                firstPartN.add("одна тысяча")
+            }
+            n / 1000 % 10 == 2 -> {
+                firstPartN.remove("два")
+                firstPartN.add("две тысячи")
+            }
+            n / 1000 % 10 in 3..4 -> {
+                firstPartN.add("тысячи")
+            }
+            else -> firstPartN.add("тысяч")
+        }
+    }
 
+    return (firstPartN + secondPartN).joinToString(" ")
+}
+
+
+fun toWord(n: Int): List<String> {
+    val unitsF = arrayOf(
+        "", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"
+    )
+    val hundreds = arrayOf(
+        "", "сто", "двести", "триста", "четыресто", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот"
+    )
+    val tens = arrayOf(
+        "", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят",
+        "девяносто"
+    )
+
+    val theSecondTen = arrayOf(
+        "", "одинадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадццать", "шестнадцать", "семнадцать",
+        "восемнадцать", "девятнадцать"
+    )
+    val intToWords = mutableListOf<String>()
+    intToWords.add(hundreds[n / 100 % 10])
+    if (n / 10 % 10 == 1 && n % 100 != 10) {
+        intToWords.add(theSecondTen[n % 10])
+    } else {
+        intToWords.add(tens[n / 10 % 10])
+        intToWords.add(unitsF[n % 10])
+    }
+    intToWords.removeIf { it.isEmpty() }
+    return intToWords
+}
+
+
+fun main() {
+    println(toWord(119))
+    println(russian(41019))
+}
