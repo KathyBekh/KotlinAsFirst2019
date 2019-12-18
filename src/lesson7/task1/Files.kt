@@ -2,8 +2,8 @@
 
 package lesson7.task1
 
-import lesson4.task1.russian
 import java.io.File
+import java.util.*
 
 /**
  * Пример
@@ -43,15 +43,6 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
         }
     }
     outputStream.close()
-}
-
-fun main() {
-//    val str = "barabash"
-//    val tmp = str.split("ba")
-//    println(tmp)
-//    val numberOfOccurrences = mutableMapOf<String, Int>().withDefault { 0 }
-//    println(numberOfOccurrences.getValue("aoeu"))
-    println(russian(345))
 }
 
 /**
@@ -311,7 +302,79 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    TODO()
+    val stack = LinkedList<String>()
+
+    val htmlTags = mapOf(
+        "*" to "i",
+        "**" to "b"
+    )
+    val tagsOfLength2 = mapOf(
+        "~~" to "s",
+        "**" to "b"
+    )
+
+    val output = File(outputName).printWriter()
+    output.println("<html>")
+    output.println("<body>")
+    output.println("<p>")
+    stack.push("p")
+    var nesting = 0
+    for (line in File(inputName).readLines()) {
+        if (line.isBlank()) {
+            output.println("</p>")
+            output.println("<p>")
+            continue
+        }
+
+        var outputLine = ""
+        var i = 0
+        while (i < line.length - 1) {
+            val substring = line.substring(i, i + 2)
+            if (substring in tagsOfLength2.keys) {
+                if (stack.peek() != substring) {
+                    outputLine += "<" + tagsOfLength2[substring] + ">"
+                    stack.push(substring)
+                } else {
+                    outputLine += "</" + tagsOfLength2[substring] + ">"
+                    stack.pop()
+                }
+                i += 2
+                continue
+            }
+            if (line[i] == '*') {
+                if (stack.peek() != line[i].toString()) {
+                    outputLine += "<i>"
+                    stack.push(line[i].toString())
+                } else {
+                    outputLine += "</i>"
+                    stack.pop()
+                }
+                ++i
+                continue
+            }
+            outputLine += line[i++]
+        }
+
+        if (i == line.length - 1) {
+            if (line[i] == '*') {
+                if (stack.peek() != line[i].toString()) {
+                    outputLine += "<i>"
+                    stack.push(line[i].toString())
+                } else {
+                    outputLine += "</i>"
+                    stack.pop()
+                }
+            }
+            outputLine += line[i]
+        }
+        output.println(outputLine)
+    }
+    if (stack.peek() == "p") {
+        output.println("</p>")
+    }
+    output.println("</body>")
+    output.println("</html>")
+    output.close()
 }
 
 /**
