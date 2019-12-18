@@ -45,7 +45,7 @@ fun timeSecondsToStr(seconds: Int): String {
  * Пример: консольный ввод
  */
 fun main() {
-    println(fromRoman("MCMLXXVIII"))
+    println(bestLongJump("-  -"))
 //    println(bestLongJump("700 - 700"))
 //    println("Введите время в формате ЧЧ:ММ:СС")
 //    val line = readLine()
@@ -170,7 +170,8 @@ fun dateDigitToStr(digital: String): String {
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-//локальные тесты проходит
+//локальные тесты проходит, но на котоеде падает с ошибкой "java.util.concurrent.TimeoutException : executable timed out after 10000 ms"
+//не могу посмотреть данные, подоваемые на вход
 fun flattenPhoneNumber(phone: String): String {
     val symbol = listOf('+', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0')
     return if (!phone.matches(Regex("""(\+*\d*(\(\d+\s*[-]*\s*\d*\))?\s*[-]*)*"""))) ""
@@ -305,7 +306,7 @@ fun firstDuplicateIndex(str: String): Int {
  */
 //локальные тесты проходит
 fun mostExpensive(description: String): String {
-    if (!description.matches(Regex("""(\pL+\s+[0-9]+\.*[0-9]*;*\s*)*"""))) {
+    if (!description.matches(Regex("""([a-zA-Zа-яА-Я]+\s+[0-9]+\.*[0-9]*;*\s*)*"""))) {
         return ""
     }
     if (description == "") return ""
@@ -414,18 +415,6 @@ fun fromRoman(roman: String): Int {
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-//что-то не догоняю. надо ещё подумать!
 fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
-    var result = mutableListOf<Int>()
-    val symbols = listOf<String>(">", "<", "+", "-", "[", "]", " ")
-
-    for (i in commands) {
-        require(i.toString() in symbols)
-    }
-    for (i in 0 until cells)
-        result.add(0)
-
-
-
-    return result.toList()
+    TODO()
 }
