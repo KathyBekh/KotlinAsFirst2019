@@ -385,15 +385,15 @@ fun russian(n: Int): String {
     val secondPartN = toWord(n % 1000).toMutableList()
     if (firstPartN.isNotEmpty()) {
         when {
-            n / 1000 % 10 == 1 -> {
+            n / 1000 % 10 == 1 && n / 1000 % 100 != 11 -> {
                 firstPartN.remove("один")
                 firstPartN.add("одна тысяча")
             }
-            n / 1000 % 10 == 2 -> {
+            n / 1000 % 10 == 2 && n / 1000 % 100 != 12 -> {
                 firstPartN.remove("два")
                 firstPartN.add("две тысячи")
             }
-            n / 1000 % 10 in 3..4 -> {
+            n / 1000 % 10 in 3..4 && n / 1000 % 100 != 13 && n / 1000 % 100 != 14 -> {
                 firstPartN.add("тысячи")
             }
             else -> firstPartN.add("тысяч")
@@ -434,6 +434,6 @@ fun toWord(n: Int): List<String> {
 
 
 fun main() {
-    println(toWord(119))
-    println(russian(41019))
+    println(toWord(111))
+    println(russian(213655))
 }

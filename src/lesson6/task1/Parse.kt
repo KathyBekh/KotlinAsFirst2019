@@ -45,7 +45,7 @@ fun timeSecondsToStr(seconds: Int): String {
  * Пример: консольный ввод
  */
 fun main() {
-    println(bestLongJump("-  -"))
+    println(mostExpensive(". 0"))
 //    println(bestLongJump("700 - 700"))
 //    println("Введите время в формате ЧЧ:ММ:СС")
 //    val line = readLine()
@@ -195,7 +195,7 @@ fun bestLongJump(jumps: String): Int {
     val jump = jumps.split(" ")
     var numb: Int
     for (i in jump) {
-        if (i == "-" || i == "%") continue
+        if (i == "-" || i == "%" || i == "") continue
         else {
             numb = i.toInt()
             if (numb > result)
