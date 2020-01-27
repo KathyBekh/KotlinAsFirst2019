@@ -2,16 +2,9 @@
 
 package lesson1.task1
 
-import lesson2.task1.segmentLength
-import lesson3.task1.fib
-import lesson3.task1.fibSequenceDigit
-import lesson3.task1.hasDifferentDigits
 import lesson3.task1.squareSequenceDigit
-import lesson4.task1.convert
-import lesson4.task1.convertToString
-import lesson4.task1.factorize
-import lesson4.task1.factorizeToString
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.sqrt
 
 /**
  * Пример
@@ -58,13 +51,6 @@ fun quadraticRootProduct(a: Double, b: Double, c: Double): Double {
  * Пример главной функции
  */
 fun main() {
-//    val dict = mutableMapOf<Int, String>()
-//    dict[3] = "Vasya"
-//    dict[5] = "Katya"
-//    dict[3] = "Petya"
-//    dict.forEach { (key, value) -> println("Key: $key, value: $value") }
-//    println(dict)
-
     val x1x2 = squareSequenceDigit(12)
     println("Root product: $x1x2")
 }

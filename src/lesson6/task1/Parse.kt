@@ -45,7 +45,14 @@ fun timeSecondsToStr(seconds: Int): String {
  * Пример: консольный ввод
  */
 fun main() {
-    println(mostExpensive(". 0"))
+    println(flattenPhoneNumber("+7 (921) 123-45-67"))
+    println(flattenPhoneNumber("12 --  34- 5 -- 67 -98"))
+    println(flattenPhoneNumber("+12 (3) 4-5"))
+    println(flattenPhoneNumber("+12 () 4-5"))
+    println(flattenPhoneNumber("+42 56 -- 67"))
+    println(flattenPhoneNumber("+42(56 -- 67)89"))
+    println(flattenPhoneNumber("ab-123"))
+    println(flattenPhoneNumber("134_+874"))
 //    println(bestLongJump("700 - 700"))
 //    println("Введите время в формате ЧЧ:ММ:СС")
 //    val line = readLine()
@@ -175,6 +182,7 @@ fun dateDigitToStr(digital: String): String {
 fun flattenPhoneNumber(phone: String): String {
     val symbol = listOf('+', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0')
     return if (!phone.matches(Regex("""(\+*\d*(\(\d+\s*[-]*\s*\d*\))?\s*[-]*)*"""))) ""
+//    return if (!phone.matches(Regex("""(\d*[+\-]*[(\d+)]?\s*)*"""))) ""
     else phone.filter { it in symbol }
 }
 
@@ -306,7 +314,8 @@ fun firstDuplicateIndex(str: String): Int {
  */
 //локальные тесты проходит
 fun mostExpensive(description: String): String {
-    if (!description.matches(Regex("""([a-zA-Zа-яА-Я]+\s+[0-9]+\.*[0-9]*;*\s*)*"""))) {
+//    if (!description.matches(Regex("""([a-zA-Zа-яА-Я]+\s+[0-9]+\.*[0-9]*;*\s*)*"""))) {
+    if (!description.matches(Regex("""(\pL+\s+[0-9]+\.*[0-9]*;*\s*)*"""))) {
         return ""
     }
     if (description == "") return ""

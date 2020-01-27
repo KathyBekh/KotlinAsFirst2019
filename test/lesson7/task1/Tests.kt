@@ -7,6 +7,43 @@ import java.io.File
 
 class Tests {
 
+    @Test
+    fun hairColor() {
+        assertEquals(
+            mapOf("красный" to "Инна Иванова"),
+            hairColor(
+                listOf(
+                    "Фунт Роман Геннадьевич: черный, рыжий",
+                    "Иванов Иван Иванович: черный, рыжий",
+                    "Иванова Инна Федоровна: красный"
+                )
+            )
+        )
+//        assertEquals(
+//            mapOf("красный" to "Инна Иванова"),
+//            hairColor(
+//                listOf(
+//                    "Фунт Роман Геннадьевич: черный, рыжий",
+//                    "Иванов Иван Иванович: рыжий, черный",
+//                    "Иванова Инна Федоровна: красный"
+//                )
+//            )
+//        )
+        assertEquals(
+            mapOf(
+                "черный, рыжий" to "Роман Фунт",
+                "желтый, рыжий" to "Иван Иванов", "красный" to "Инна Иванова"
+            ),
+            hairColor(
+                listOf(
+                    "Фунт Роман Геннадьевич: черный, рыжий",
+                    "Иванов Иван Иванович: желтый, рыжий",
+                    "Иванова Инна Федоровна: красный"
+                )
+            )
+        )
+    }
+
     private fun assertFileContent(name: String, expectedContent: String) {
         val file = File(name)
         val content = file.readLines().joinToString("\n")
