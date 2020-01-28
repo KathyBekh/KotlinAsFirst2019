@@ -24,9 +24,6 @@ fun hairColor(people: List<String>): Map<String, String> {
     return map
 }
 
-fun main() {
-    println(hairColor(listOf("ф и о: ц1, ц2, ц3", "s n sn: c1, c2, c3,", " ")))
-}
 
 /**
  * Пример
@@ -569,3 +566,27 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     TODO()
 }
 
+
+fun trace(inputName: String, src: String, dst: String): List<String> {
+    val transportWithTrace = mutableMapOf<String, List<String>>()
+    val result = mutableListOf<String>()
+    File(inputName).forEachLine {
+        val dayRangeWithOneMonth = """([а-яА-Я]+\s*\d+\s*) ([а-яА-Я>\.\s]+)""".toRegex()
+        val matches = dayRangeWithOneMonth.find(it)
+        if (matches != null) {
+            val (bus, trace) = matches.destructured
+            val traceList = trace.split(">")
+            transportWithTrace[bus] = traceList
+        }
+    }
+    for ((key, value) in transportWithTrace) {
+        if (src in value && dst in value) {
+            result.add(key)
+        }
+    }
+    return result
+}
+
+fun main() {
+    println(trace("input/bus", "Парк отдыха", "ул. Дворцовая"))
+}

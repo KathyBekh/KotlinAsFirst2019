@@ -438,6 +438,7 @@ fun cellToIndexes(cell: String): Pair<Int, Int> {
 fun maxRainfall(inputName: String, days: String): List<String> {
     val result = mutableListOf<String>()
     val monthRainfalls = mutableMapOf<String, List<Int>>()
+    val months = linkedSetOf<String>()
     File(inputName).forEachLine {
         val line = it.split(" ")
         val integers = mutableListOf<Int>()

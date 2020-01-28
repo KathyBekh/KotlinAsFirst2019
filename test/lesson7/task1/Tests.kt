@@ -1,9 +1,11 @@
 package lesson7.task1
 
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import java.io.File
+import java.io.IOException
 
 class Tests {
 
@@ -466,5 +468,27 @@ Basic, Ruby, Swift.
         )
 
         File("temp.txt").delete()
+    }
+
+    @Test
+    fun trace() {
+        assertEquals(
+            listOf("трамвай 3"),
+            trace("input/bus", "Парк отдыха", "ул. Дворцовая")
+        )
+
+        assertEquals(
+            listOf("48"),
+            trace("input/bus", "Парк отдыха", "Аэропорт")
+        )
+
+        assertEquals(
+            listOf("48"),
+            trace("input/bus", "Аэропорт", "Московское ш")
+        )
+
+        Assertions.assertThrows(IOException::class.java) {
+            trace("aaotehutaoheuooh8", "aeou", "hndiu")
+        }
     }
 }
