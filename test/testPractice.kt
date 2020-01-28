@@ -3,12 +3,14 @@ package practice.kt
 import apartments
 import birthday
 import findNumberPhone
+import findRoute
 import footballMatchStatistics
 import intersectionOfMany
 import maxRainfall
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import rangeAverage
+import rout
 import stockProducts
 import transfer
 import java.io.IOException
@@ -202,6 +204,64 @@ class Tests {
 
         Assertions.assertThrows(IOException::class.java) {
             maxRainfall("aaotehutaoheuooh8", "aeou")
+        }
+    }
+
+    @Test
+    fun findRoute() {
+        Assertions.assertEquals(
+            listOf("[трамвай 3]"),
+            findRoute("input/bus", "Парк отдыха", "ул. Дворцовая")
+        )
+
+        Assertions.assertEquals(
+            listOf("[автобус 17, ул. Железнодорожная, автобус 4]"),
+            findRoute("input/bus", "Парк отдыха", "Аэропорт")
+        )
+
+        Assertions.assertEquals(
+            listOf("[автобус 4, ул. Железнодорожная, троллейбус 15]"),
+            findRoute("input/bus", "Аэропорт", "Московское ш")
+        )
+
+        Assertions.assertThrows(IOException::class.java) {
+            findRoute("aaotehutaoheuooh8", "Аэропорт", "Московское ш")
+        }
+        Assertions.assertThrows(IllegalArgumentException::class.java) {
+            findRoute("input/bus", "nheu", "Московское ш")
+        }
+
+        Assertions.assertThrows(IllegalArgumentException::class.java) {
+            findRoute("input/bus", "nheu", "Московское ш")
+        }
+    }
+
+    @Test
+    fun rout() {
+        Assertions.assertEquals(
+            listOf("трамвай 3"),
+            rout("input/bus", "Парк отдыха", "ул. Дворцовая")
+        )
+
+        Assertions.assertEquals(
+            listOf("автобус 17, пересадка ([ул. Железнодорожная]), автобус 4"),
+            rout("input/bus", "Парк отдыха", "Аэропорт")
+        )
+
+        Assertions.assertEquals(
+            listOf("автобус 4, пересадка ([ул. Железнодорожная]), троллейбус 15"),
+            rout("input/bus", "Аэропорт", "Московское ш")
+        )
+
+        Assertions.assertThrows(IOException::class.java) {
+            rout("aaotehutaoheuooh8", "Аэропорт", "Московское ш")
+        }
+        Assertions.assertThrows(IllegalArgumentException::class.java) {
+            rout("input/bus", "nheu", "Московское ш")
+        }
+
+        Assertions.assertThrows(IllegalArgumentException::class.java) {
+            rout("input/bus", "nheu", "Московское ш")
         }
     }
 }
