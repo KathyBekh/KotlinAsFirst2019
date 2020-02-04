@@ -5,25 +5,6 @@ package lesson7.task1
 import java.io.File
 import java.util.*
 
-//test
-fun hairColor(people: List<String>): Map<String, String> {
-    val map = mutableMapOf<String, String>()
-    val unicColor = mutableListOf<String>()
-    for (i in people) {
-        if (i.length < 2) continue
-        val menAndColor = i.split(": ")
-        val name = menAndColor[0].split(' ')
-        val nameSurname = name[1] + " " + name[0]
-        if (menAndColor[1] !in unicColor) {
-            unicColor.add(menAndColor[1])
-            map[menAndColor[1]] = nameSurname
-        } else {
-            map.remove(menAndColor[1])
-        }
-    }
-    return map
-}
-
 
 /**
  * Пример
