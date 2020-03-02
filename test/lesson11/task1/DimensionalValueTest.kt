@@ -20,7 +20,11 @@ internal class DimensionalValueTest {
         val second = DimensionalValue("200 m")
         assertEquals(200.0, second.value)
         assertEquals(Dimension.METER, second.dimension)
+        val third = DimensionalValue(1.0, "MHz")
+        assertEquals(1000000.0, third.value)
+        assertEquals(Dimension.HERTZ, third.dimension)
     }
+
 
     @Test
     @Tag("Easy")

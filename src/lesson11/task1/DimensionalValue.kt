@@ -21,13 +21,13 @@ class DimensionalValue {
      * Величина с БАЗОВОЙ размерностью (например для 1.0Kg следует вернуть результат в граммах -- 1000.0)
      */
     val value: Double
-//        get() = field * 1000
+
 
     /**
      * БАЗОВАЯ размерность (опять-таки для 1.0Kg следует вернуть GRAM)
      */
     val dimension: Dimension
-//        get() = field
+
 
     constructor(value: Double, dimension: Dimension) {
         this.value = value
@@ -50,9 +50,7 @@ class DimensionalValue {
         this.dimension = dimensionalValue.dimension
     }
 
-    override fun toString(): String {
-        return "value: $value dimension: $dimension"
-    }
+    override fun toString(): String = "value: $value dimension: $dimension"
 
     /**
      * Сложение с другой величиной. Если базовая размерность разная, бросить IllegalArgumentException
@@ -61,7 +59,7 @@ class DimensionalValue {
     operator fun plus(other: DimensionalValue): DimensionalValue {
         val sumValue = value + other.value
         if (dimension != other.dimension) {
-            throw IllegalArgumentException() as Throwable
+            throw IllegalArgumentException()
         }
         return DimensionalValue(sumValue, dimension)
     }
@@ -149,11 +147,12 @@ class DimensionalValue {
  */
 enum class Dimension(val abbreviation: String) {
     METER("m"),
-    GRAM("g");
+    GRAM("g"),
+    HERTZ("Hz");
 
     companion object {
         fun fromAbbreviation(abbreviation: String): Dimension {
-            for (dimension in Dimension.values()) {
+            for (dimension in values()) {
                 if (dimension.abbreviation == abbreviation) {
                     return dimension
                 }
@@ -168,21 +167,23 @@ enum class Dimension(val abbreviation: String) {
  */
 enum class DimensionPrefix(val abbreviation: String, val multiplier: Double) {
     KILO("K", 1000.0),
-    MILLI("m", 0.001);
+    MILLI("m", 0.001),
+    MEGA("M", 1000000.0);
 
     companion object {
         fun toDimensionalValue(prefixedAbbreviation: String): DimensionalValue {
-            if (prefixedAbbreviation.length != 1) {
-                for (prefix in DimensionPrefix.values()) {
-                    for (dimension in Dimension.values()) {
-                        if (prefix.abbreviation == prefixedAbbreviation[0].toString()
-                            && dimension.abbreviation == prefixedAbbreviation[1].toString()
-                        ) {
-                            return DimensionalValue(
-                                prefix.multiplier,
-                                Dimension.fromAbbreviation(dimension.abbreviation)
-                            )
-                        }
+            if (prefixedAbbreviation.length == 1) {
+                return DimensionalValue(1.0, Dimension.fromAbbreviation(prefixedAbbreviation))
+            }
+            for (prefix in values()) {
+                for (dimension in Dimension.values()) {
+                    if (prefix.abbreviation == prefixedAbbreviation[0].toString()
+                        && dimension.abbreviation == prefixedAbbreviation.substring(1)
+                    ) {
+                        return DimensionalValue(
+                            prefix.multiplier,
+                            Dimension.fromAbbreviation(dimension.abbreviation)
+                        )
                     }
                 }
             }
